@@ -1,12 +1,42 @@
 import "../index.css";
-export default function Player({ name, symbol }) {
+import { useState } from "react";
+export default function Player({ initialName, symbol }) {
+  const [playerName, setPlayerName] = useState(initialName);
+  const [isEdititing, setIsEditing] = useState(false);
+
+  function handleEditClick() {
+    setIsEditing(!isEdititing);
+  }
+  function toSaveInput() {}
+
+  let editablePlayerName = <span className="player-name">{playerName}</span>;
+
+  function handleChange(event) {
+    setPlayerName(event.target.value);
+  }
+
+  if (isEdititing) {
+    editablePlayerName = (
+      <input
+        type="text"
+        required
+        defaultValue={playerName}
+        onChange={handleChange}
+      />
+    );
+  }
+
   return (
-    <li>
-      <span className="player">
-        <span className="player-name">{name}</span>
-        <span className="player-symbol">{symbol}</span>
-      </span>
-      <button>Edit</button>
-    </li>
+    <>
+      <li>
+        <span className="player">
+          {editablePlayerName}
+          <span className="player-symbol">{symbol}</span>
+        </span>
+        <button onClick={handleEditClick}>
+          {isEdititing ? "Save" : "Edit"}
+        </button>
+      </li>
+    </>
   );
 }
