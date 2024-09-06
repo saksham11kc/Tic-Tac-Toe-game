@@ -5,7 +5,8 @@ export default function Player({ initialName, symbol }) {
   const [isEdititing, setIsEditing] = useState(false);
 
   function handleEditClick() {
-    setIsEditing(!isEdititing);
+    setIsEditing((inverseEdit) => !inverseEdit);
+    console.log;
   }
   function toSaveInput() {}
 
