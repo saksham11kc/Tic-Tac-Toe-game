@@ -1,14 +1,19 @@
 import "../index.css";
 import { useState } from "react";
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [playerName, setPlayerName] = useState(initialName);
-  const [isEdititing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
-    setIsEditing((inverseEdit) => !inverseEdit);
-    console.log;
+    setIsEditing((editing) => !editing);
+    if (isEditing) onChangeName(symbol, playerName);
   }
-  function toSaveInput() {}
+  // function toSaveInput() {}
 
   let editablePlayerName = <span className="player-name">{playerName}</span>;
 
@@ -16,7 +21,7 @@ export default function Player({ initialName, symbol, isActive }) {
     setPlayerName(event.target.value);
   }
 
-  if (isEdititing) {
+  if (isEditing) {
     editablePlayerName = (
       <input
         type="text"
@@ -33,7 +38,7 @@ export default function Player({ initialName, symbol, isActive }) {
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={handleEditClick}>{isEdititing ? "Save" : "Edit"}</button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
